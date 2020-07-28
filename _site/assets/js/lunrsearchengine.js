@@ -18,7 +18,7 @@ var documents = [{
     "id": 3,
     "url": "http://localhost:4000/contact",
     "title": "Contact",
-    "body": "  Please send me your message. I'll reply as soon as possible!   "
+    "body": "Direct methods Email: svirahonda@gmail. com LinkedIn: /sergiovirahonda   Please send me your message. I'll reply as soon as possible!   "
     }, {
     "id": 4,
     "url": "http://localhost:4000/",

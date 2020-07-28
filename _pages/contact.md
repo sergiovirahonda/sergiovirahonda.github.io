@@ -16,7 +16,7 @@ comments: false
 </div>
 
 <form action="https://formspree.io/mjvajzpr" method="POST">    
-<p class="mb-4">Please send me your message. I'll reply as soon as possible!</p>
+<b><p class="mb-4">Please send me your message. I'll reply as soon as possible!</p></b>
 <div class="form-group row">
 <div class="col-md-6">
 <input class="form-control" type="text" name="name" placeholder="Name*" required>
