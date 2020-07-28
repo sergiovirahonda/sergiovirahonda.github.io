@@ -5,9 +5,100 @@
     <description>Hi there.&lt;br&gt;My name is Sergio Virahonda. I'm a data scientist and Python developer.&lt;br&gt;It's nice to meet you.</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 25 Jun 2020 15:39:55 -0600</pubDate>
-    <lastBuildDate>Thu, 25 Jun 2020 15:39:55 -0600</lastBuildDate>
+    <pubDate>Mon, 27 Jul 2020 18:46:05 -0600</pubDate>
+    <lastBuildDate>Mon, 27 Jul 2020 18:46:05 -0600</lastBuildDate>
     <generator>Jekyll v4.1.0</generator>
+    
+      <item>
+        <title>A Flask web application to increase A2 Softway scope</title>
+        <description>&lt;p&gt;Hi there. I’ll introduce a very recent web application that I’ve built for a well known organization in Central America. I cannot reveal the name for obvious reasons but I promise I’ll try to explain every single detail about this project here and within the code that you’ll find at the end of this post.&lt;/p&gt;
+
+&lt;p&gt;Let’s start from the very beginning; A2 Softway is a Venezuelan ERP software widely distributed and sold along the Americas. Its focus is to provide a complete administrative module but also flexible and very cheap compared, for example, with the SAP’s ERP.&lt;/p&gt;
+
+&lt;p&gt;One of the A2 distributors of Central America reached out to me because a very particular need: expand the scope of this software for an important client. Essentially they were needing to interact with its database to modify some tables that cannot be modified from within the software and also query some information to be presented in this company’s website.&lt;/p&gt;
+
+&lt;p&gt;A2 Softway is written in Borland Delphi and runs a DBISAM database. It’s a very unusual architecture with an old fashioned database system, which makes the project task, let’s say, complex. Said this, let’s deep dive into the project.&lt;/p&gt;
+
+&lt;h1 id=&quot;the-project&quot;&gt;The project&lt;/h1&gt;
+
+&lt;p&gt;Alright,&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;The main requirement:&lt;/strong&gt; the client just launched their website and are needing to provide their customers’ account status from there. To accomplish this task, they would need to query the A2 database hosted in a local server (on-premise), do some math and return a file to the Drupal website where the customer will be logged in.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;The collateral requirement:&lt;/strong&gt; modify some database’s fields because A2 itself does not allow to. You may be asking why would it be a requirement and why the software does not do that by itself; the answer: As It’s a Venezuelan software adapted to be sold around the world, it still has some software regulations imposed by the venezuelan laws. The distributor needed to break this boundary to be able to deploy the software in the client’s ecosystem ASAP. Essentialy they were requiring to modify invoices’ data to correct errors made by the billing staff but also consult information about the customers without having to access the A2 interface, through a fancy frontend.&lt;/p&gt;
+
+&lt;h1 id=&quot;the-road-blocks&quot;&gt;The road-blocks&lt;/h1&gt;
+
+&lt;p&gt;As you may know, &lt;strong&gt;DBISAM databases&lt;/strong&gt; are difficult to modify and you need a special software to do so. I found the DBISAM ODBC driver from Elevate Software, had to purchase the license and finally was able to query the DB engine.&lt;/p&gt;
+
+&lt;p&gt;They were needing an app that would allow to query the database from the outside (the website) so I concluded the best way to solve this problem would be a web application. I would go through this topic in the next lines:&lt;/p&gt;
+
+&lt;h1 id=&quot;the-web-application&quot;&gt;The web application&lt;/h1&gt;
+
+&lt;p&gt;Once I was able to query the so restricted DB, it was time to code. I’m a Python fan (I think I don’t have to explain why, it’s pretty obvious) so decided to build the app based on it. This is the application core architecture (btw, I called the app &lt;strong&gt;“A2 Workspace”&lt;/strong&gt;):&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/flask-app-post/architecture.jpg&quot; alt=&quot;App Architecture&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The application is coded with Python, Flask, HTML, CSS, Bootstrap and runs in the same A2 local server. Essentially it renders several HTML pages for the internal services such as modify dates and documents, and returns a simple pdf file for the external service.&lt;/p&gt;
+
+&lt;p&gt;Before moving on, It’s important to mention the interface is in Spanish, just FYI.&lt;/p&gt;
+
+&lt;h1 id=&quot;the-interface&quot;&gt;The interface&lt;/h1&gt;
+
+&lt;p&gt;This app has several pages, but the most importants are:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;The login page:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;This is how the login page for internal employees would look like.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/flask-app-post/login.jpg&quot; alt=&quot;Login Page&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;The index:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;This page is still to be defined. The client will need to present some business graphs but hasn’t decided what to show yet.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/flask-app-post/dashboard.jpg&quot; alt=&quot;Index Page&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;The page to query internal customers:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/flask-app-post/query_affiliate.jpg&quot; alt=&quot;Query affilliate&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;The page to query customers’ account status:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/flask-app-post/query_document.jpg&quot; alt=&quot;Query account&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;The page to modify invoice numbers:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/flask-app-post/modify_document.jpg&quot; alt=&quot;Modify document&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;The page to modify invoices’ dates:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/flask-app-post/modify_date.jpg&quot; alt=&quot;Modify dates&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;A file example of what the external service would return through the website:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Due to compliance reasons I removed some client’s information, but that’s essentially what the external service returns.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/flask-app-post/document.png&quot; alt=&quot;File Example&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;the-whole-project-and-code&quot;&gt;The whole project and code:&lt;/h1&gt;
+
+&lt;p&gt;The whole project is available &lt;a href=&quot;https://github.com/sergiovirahonda/A2Workspace&quot;&gt;Here&lt;/a&gt; in case you want to deep dive into it. Feel free to contact me in case of any doubt/feedback.&lt;/p&gt;
+
+&lt;p&gt;I hope you have enjoyed this reading. See you around!&lt;/p&gt;
+</description>
+        <pubDate>Sun, 26 Jul 2020 00:00:00 -0600</pubDate>
+        <link>http://localhost:4000/a-flask-app/</link>
+        <guid isPermaLink="true">http://localhost:4000/a-flask-app/</guid>
+        
+        
+        <category>Flask</category>
+        
+        <category>Python</category>
+        
+        <category>SQL</category>
+        
+      </item>
     
       <item>
         <title>A Machine Learning solution with Python and Splunk</title>
