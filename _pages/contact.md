@@ -4,8 +4,18 @@ title: Contact
 permalink: /contact
 comments: false
 ---
+**Direct methods**
 
-<form action="https://formspree.io/{{site.email}}" method="POST">    
+<div class="form-group row">
+<div class="col-md-6">
+<p>Email: svirahonda@gmail.com</p>
+</div>
+<div class="col-md-6">
+<p>LinkedIn: /sergiovirahonda</p>
+</div>
+</div>
+
+<form action="https://formspree.io/mjvajzpr" method="POST">    
 <p class="mb-4">Please send me your message. I'll reply as soon as possible!</p>
 <div class="form-group row">
 <div class="col-md-6">
