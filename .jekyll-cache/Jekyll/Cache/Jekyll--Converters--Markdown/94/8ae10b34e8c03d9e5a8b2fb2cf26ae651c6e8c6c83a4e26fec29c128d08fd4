@@ -1,0 +1,29 @@
+I"<p><strong>Direct methods</strong></p>
+
+<div class="form-group row">
+    <a href="https://linkedin.com/in/sergiovirahonda"><i class="fab fa-linkedin-in"></i></a>
+     <a href="https://github.com/sergiovirahonda"><i class="fab fa-github"></i></a>
+     <a href="https://github.com/sergiovirahonda"><i class="fab fa-instagram"></i></a>
+    <div class="col-md-6">
+        <a href="https://linkedin.com/in/sergiovirahonda"><i class="fab fa-linkedin-in"></i></a>
+    </div>
+    <div class="col-md-6">
+        <a href="https://github.com/sergiovirahonda"><i class="fab fa-github"></i></a>
+    </div>
+        <a href="https://github.com/sergiovirahonda"><i class="fab fa-instagram"></i></a>
+</div>
+
+<form action="https://formspree.io/mjvajzpr" method="POST">    
+<b><p class="mb-4">Please send me your message. I'll reply as soon as possible!</p></b>
+<div class="form-group row">
+<div class="col-md-6">
+<input class="form-control" type="text" name="name" placeholder="Name*" required="" />
+</div>
+<div class="col-md-6">
+<input class="form-control" type="email" name="_replyto" placeholder="E-mail Address*" required="" />
+</div>
+</div>
+<textarea rows="8" class="form-control mb-3" name="message" placeholder="Message*" required=""></textarea>    
+<input class="btn btn-dark" type="submit" value="Send" />
+</form>
+:ET

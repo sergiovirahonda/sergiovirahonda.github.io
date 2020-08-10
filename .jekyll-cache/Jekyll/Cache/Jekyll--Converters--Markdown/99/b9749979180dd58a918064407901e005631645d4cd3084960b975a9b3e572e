@@ -1,8 +1,0 @@
-I"<h4 id="hey-its-nice-to-see-you-around">Hey! It’s nice to see you around.</h4>
-
-<p>These are my latest projects. Feel free to check them out and if any is of your interest, just bookmark it :)</p>
-
-<div class="main-content">
-        {{ content }}
-    </div>
-:ET
