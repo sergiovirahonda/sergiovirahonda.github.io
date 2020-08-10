@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "A Flask web application to increase A2 Softway scope"
+title:  "A Flask web application to increase the A2 Softway's scope"
 author: sergio
 categories: [ Flask,Python,SQL ]
 tags: []
@@ -9,9 +9,9 @@ rating: 4.5
 comments: false
 ---
 
-Hi there. I'll introduce a very recent web application that I've built for a well known organization in Central America. I cannot reveal the name for obvious reasons but I promise I'll try to explain every single detail about this project here and within the code that you'll find at the end of this post.
+Hi there. I'll introduce a very recent web application that I've been developing for a well known organization in Central America. I cannot reveal the name for obvious reasons but I promise I'll try to explain every single detail about this project here and within the code's link that you'll find at the end of this post.
 
-Let's start from the very beginning; A2 Softway is a Venezuelan ERP software widely distributed and sold along the Americas. Its focus is to provide a complete administrative module but also flexible and very cheap compared, for example, with the SAP's ERP.
+Let's start from the very beginning: A2 Softway is a Venezuelan ERP software widely distributed and sold along the Americas. Its focus is to provide a complete administrative module but also flexible and very cheap compared, for example, with the SAP's ERP.
 
 One of the A2 distributors of Central America reached out to me because a very particular need: expand the scope of this software for an important client. Essentially they were needing to interact with its database to modify some tables that cannot be modified from within the software and also query some information to be presented in this company's website.
 
@@ -22,14 +22,14 @@ A2 Softway is written in Borland Delphi and runs a DBISAM database. It's a very 
 
 Alright,
 
-**The main requirement:** the client just launched their website and are needing to provide their customers' account status from there. To accomplish this task, they would need to query the A2 database hosted in a local server (on-premise), do some math and return a file to the Drupal website where the customer will be logged in.
+**The main requirement:** the client just launched their website and were needing to provide their customers' account status from there. To accomplish this task, they would need to query the A2 database hosted in a local server (on-premise), do some math and return a file to the Drupal website where the customer would be logged in.
 
-**The collateral requirement:** modify some database's fields because A2 itself does not allow to. You may be asking why would it be a requirement and why the software does not do that by itself; the answer: As It's a Venezuelan software adapted to be sold around the world, it still has some software regulations imposed by the venezuelan laws. The distributor needed to break this boundary to be able to deploy the software in the client's ecosystem ASAP. Essentialy they were requiring to modify invoices' data to correct errors made by the billing staff but also consult information about the customers without having to access the A2 interface, through a fancy frontend.
+**The collateral requirement:** modify some database's fields because A2 itself does not allow to. You may be asking why would this be a requirement and why the software does not do that by itself; the answer: As It's a Venezuelan software adapted to be sold around the world, it still has some software regulations imposed by the venezuelan laws. The distributor needed to break this boundary to be able to deploy the software in the client's ecosystem ASAP. Essentialy they were requiring to modify invoices' data to correct errors made by the billing staff but also consult information about the customers without having to access the A2 interface, through a fancy frontend.
 
 
 # The road-blocks
 
-As you may know, **DBISAM databases** are difficult to modify and you need a special software to do so. I found the DBISAM ODBC driver from Elevate Software, had to purchase the license and finally was able to query the DB engine.
+As you may know, **DBISAM databases** are difficult to modify because not all SQL queries are accepted and you need a special software to do so. I found the DBISAM ODBC driver from Elevate Software, had to purchase the license and finally was able to query the DB engine.
 
 They were needing an app that would allow to query the database from the outside (the website) so I concluded the best way to solve this problem would be a web application. I would go through this topic in the next lines:
 

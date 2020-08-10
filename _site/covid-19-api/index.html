@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link rel="icon" href="/assets/images/logo.png">
+
+<title>COVID-19 prediction by chest X-Ray image processing | Sergio Virahonda</title>
+
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>COVID-19 prediction by chest X-Ray image processing | Sergio Virahonda</title>
+<meta name="generator" content="Jekyll v4.1.0" />
+<meta property="og:title" content="COVID-19 prediction by chest X-Ray image processing" />
+<meta name="author" content="sergio" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Hello folks, how’s It going? I’m going to talk in this post about one of my favorite projects that I’ve worked so far, so hopefully you enjoy this read. It’s based on a dataset available at Kaggle - and such recopilation has been created by a team of researchers from Qatar, Bangladesh and some collaborators from Pakistan and Malaysia. Essentially it contains several chest X-ray images for COVID-19 positive cases along with Normal and Viral Pneumonia images: 219 COVID-19 positive cases, 1341 normal cases and 1345 viral pneumonia cases - all of them in .jpg format and 1024x1024 dimensions." />
+<meta property="og:description" content="Hello folks, how’s It going? I’m going to talk in this post about one of my favorite projects that I’ve worked so far, so hopefully you enjoy this read. It’s based on a dataset available at Kaggle - and such recopilation has been created by a team of researchers from Qatar, Bangladesh and some collaborators from Pakistan and Malaysia. Essentially it contains several chest X-ray images for COVID-19 positive cases along with Normal and Viral Pneumonia images: 219 COVID-19 positive cases, 1341 normal cases and 1345 viral pneumonia cases - all of them in .jpg format and 1024x1024 dimensions." />
+<link rel="canonical" href="http://localhost:4000/covid-19-api/" />
+<meta property="og:url" content="http://localhost:4000/covid-19-api/" />
+<meta property="og:site_name" content="Sergio Virahonda" />
+<meta property="og:image" content="http://localhost:4000/assets/images/covid-prediction/covid-app.jpg" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-08-04T00:00:00-06:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","headline":"COVID-19 prediction by chest X-Ray image processing","dateModified":"2020-08-04T00:00:00-06:00","datePublished":"2020-08-04T00:00:00-06:00","url":"http://localhost:4000/covid-19-api/","image":"http://localhost:4000/assets/images/covid-prediction/covid-app.jpg","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/covid-19-api/"},"author":{"@type":"Person","name":"sergio"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/images/logo.png"},"name":"sergio"},"description":"Hello folks, how’s It going? I’m going to talk in this post about one of my favorite projects that I’ve worked so far, so hopefully you enjoy this read. It’s based on a dataset available at Kaggle - and such recopilation has been created by a team of researchers from Qatar, Bangladesh and some collaborators from Pakistan and Malaysia. Essentially it contains several chest X-ray images for COVID-19 positive cases along with Normal and Viral Pneumonia images: 219 COVID-19 positive cases, 1341 normal cases and 1345 viral pneumonia cases - all of them in .jpg format and 1024x1024 dimensions.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    
+<link href="/assets/css/prism.css" rel="stylesheet">
+
+<link href="/assets/css/theme.css" rel="stylesheet">
+
+<script src="/assets/js/jquery.min.js"></script>
+
+</head>
+
+
+
+
+<body>
+	<!-- defer loading of font and font awesome -->
+	<noscript id="deferred-styles">
+		<link href="https://fonts.googleapis.com/css?family=Sen:400,700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+	</noscript>
+
+<!-- Begin Sidebar Navigation
+================================================== -->
+
+<div class="sidebar">    
+</div>   
+<div class="nav-icon">
+    <div class="hamburger-bar"></div>
+</div>
+<div id="blackover-nav" class="blackover"></div>
+<nav id="menu">
+    <ul>
+        <h3>Navigation</h3>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about">About <span class="badge badge-primary">me</span></a></li>   
+        <li><a href="/repo">Projects & Repo</a></li>    
+        <li><a href="/contact">Contact</a></li>       
+    </ul>   
+</nav>
+
+<script src="/assets/js/lunr.js"></script>
+
+<style>
+    
+</style>
+
+<div class="wrap-search">
+    <div class="d-flex align-items-center ml-auto">
+        <i class="fas fa-search show-search"></i>
+        <form class="bd-search ml-3" onSubmit="return lunr_search(document.getElementById('lunrsearch').value);">
+            <input type="text" class="form-control bigradius text-small launch-modal-search" id="lunrsearch" name="q" maxlength="255" value="" placeholder="Type and enter..."/>
+        </form>
+    </div>
+</div>
+
+<div id="lunrsearchresults">
+    <ul></ul>
+</div>
+
+<script src="/assets/js/lunrsearchengine.js"></script>
+
+
+<!-- End Sidebar Navigation
+================================================== -->
+
+<div class="site-content ">
+
+<div class="container">
+
+    <!-- Site Logo/Name
+    ================================================== -->
+   
+    <a class="navbar-brand" href="/">
+        <img src="/assets/images/logo.png" alt="Sergio Virahonda">
+    </a>  
+   
+
+    <!-- Site Tag
+    ================================================== -->
+    
+
+    <!-- Content
+    ================================================== -->
+    <div class="main-content">
+        <div class="entry-header">
+    <!-- Post Title -->
+    <h1 class="posttitle">COVID-19 prediction by chest X-Ray image processing</h1>
+    <!-- Author & Date  Box -->
+    
+    
+    <div class="d-flex align-items-center mt-4">
+        <div>
+            
+            <img class="author-thumb" src="/assets/images/avatar.png" alt="Sergio">
+            
+        </div>            
+        <div>
+        Written by <a target="_blank" class="text-dark" href="https://sergiovirahonda.github.io">Sergio</a> on 
+        <span class="post-date"><time class="post-date" datetime="2020-08-04">04 Aug 2020</time></span>           
+        
+        </div>            
+    </div>
+    
+</div>
+
+<!-- Adsense under title if enabled from _config.yml (change your pub id and slot) -->
+
+
+<!-- Featured Image -->
+
+<div class="entry-featured-image">
+    
+    <img class="featured-image " src="/assets/images/covid-prediction/covid-app.jpg" alt="COVID-19 prediction by chest X-Ray image processing">
+    
+</div>
+
+
+<!-- Content -->
+<!-- Post, Page Content
+================================================== -->
+<div class="article-post">
+    <!-- Toc if any -->
+    
+    <!-- End Toc -->
+    <p>Hello folks, how’s It going? I’m going to talk in this post about one of my favorite projects that I’ve worked so far, so hopefully you enjoy this read. It’s based on a dataset available at <a href="https://www.kaggle.com/tawsifurrahman/covid19-radiography-database">Kaggle</a> - and such recopilation has been created by a team of researchers from Qatar, Bangladesh and some collaborators from Pakistan and Malaysia. Essentially it contains several chest X-ray images for COVID-19 positive cases along with Normal and Viral Pneumonia images: 219 COVID-19 positive cases, 1341 normal cases and 1345 viral pneumonia cases - all of them in .jpg format and 1024x1024 dimensions.</p>
+
+<h1 id="a-brief-intro">A brief intro</h1>
+
+<p>As you may know, the COVID-19, also known as Coronavirus, is an ongoing global pandemic caused by severe acute respiratory syndrome coronavirus 2 (SARS‑CoV‑2). The outbreak was identified in December 2019 in China and the World Health Organization declared the outbreak a Public Health Emergency of International Concern on 30 January 2020 and a pandemic on 11 March. Today, when this post is being written, more than 18.4 million cases of COVID‑19 have been identified in more than 188 countries and territories, resulting in more than 697,000 deaths.</p>
+
+<p>This is how the pandemic status looks like today (I generated this map with some help of GeoPandas and GeoPlot, btw):</p>
+
+<p><img src="/assets/images/covid-prediction/map.png" alt="COVID-19 Map" />
+The scale measures confirmed cases around the globe.</p>
+
+<p>The COVID-19 is sometimes asymptomatic and primarily spread between people during close contact, most often via small droplets produced by coughing, sneezing, and talking. Most of the cases’ symptoms are fever, cough, fatigue, shortness of breath, and loss of sense of smell. Complications may include pneumonia and acute respiratory distress syndrome until the patients are no longer able to breathe on their own and must be connected to a respirator.</p>
+
+<p><br /></p>
+<h1 id="the-project">The Project</h1>
+
+<p>Alright, let’s get into the matter. There are a multiple ways to detect the virus, among the most importants we can find Reverse transcription polymerase chain reaction or just RT-PCR, Isothermal amplification assays and Antigen tests. The problem is that several poor countries around the world are dealing with the elevated costs of most of the COVID-19 tests, just imagine how costful would be to buy tests for an entire population. So, <strong>is there any way to determine whether or not a patient is COVID-19 positive based on chest X-ray images - which are not that expensive? How can the virus be detected on these ones?</strong></p>
+
+<h2 id="detecting-covid-19-through-imaging">Detecting COVID-19 through Imaging</h2>
+
+<p>Once the patient has undergone a CT scan or chest x-ray imaging, typically can be found visible features called bilateral multilobar <em>ground-glass opacities</em> (GGOs). Subpleural dominance, crazy paving, and consolidation may develop as the disease evolves (sorry for the med terminology, I know it sounds boring but I have to). The ground-glass opacities can be seen on the radiographies as very light spots near the innermost part of the lungs, with the appearance of scars branching within the lungs. Let me explain myself; I’ll show two images, one for a healthy patient and a subsequent one related to a COVID-19 positive patient. Even when both images look very similar (for not-med people at least), a very trained med would notice the lesions and how they form a very clear pattern.</p>
+
+<p><img src="/assets/images/covid-prediction/GGOs.jpg" alt="GGOs' detection" /></p>
+
+<p>According to multiple medical sources, you can actually identify a COVID-19 positive case by looking at their chest X-Ray radiography, but the human eye is not that good to have 100% accuracy, that’s why it’s not recommended and the rest of the tests are applied. What about ML? Can a good model predict cases with an acceptable accuracy and go beyond the human capacity? Actually a Deep Learning model with the right layers would perform an excellent job and by reasons like this, folks, is why CNNs are so important.</p>
+
+<p>I’ll walk you through the steps about how I went from zero to hero in this classification task, and will do my best to explain all inconveniences encountered.</p>
+
+<h1 id="data-preprocessing">Data Preprocessing</h1>
+
+<p>Alright, we have almost 3000 images, all of them labeled, awaiting for us to use them to train our models. The main problem is that no matter what model you choose, all of them interpret <strong>only</strong> numeric data, and also must be in the same shape and format.</p>
+
+<p>So, how can we turn images into numbers? Actually images are coded as numeric matrices, they are composed by 3 channels (RGB or BGR, depending of the format) with number ranges from 0 to 255, being 0 the minimum level of, for example, blue, and 255 the maximum. All 3 layers together build the image and its colors. In addition, if the image’s shape is 1024x1024 pixels then its numerical representation will be a matrix of 1024x1024x3 shape and the way to turn the image a matrix (or sometimes a tensor) is implementing a method from specific libraries such as Keras, CV2 or mpimg.</p>
+
+<p>This is how the image’s matrix representation looks like:</p>
+
+<p><img src="/assets/images/covid-prediction/ImageArray.jpg" alt="ImageArray" /></p>
+
+<p>This is how the images look like using MPIMG library - which does not interpret the channels in a good way (also returns a 1024x1024X1 matrix, totally wrong):</p>
+
+<p><img src="/assets/images/covid-prediction/mpimg.png" alt="GGOs' detection" /></p>
+
+<p>And this is how CV2 library reads the images, interpreting the channels properly (returning 1024x1024x3 matrix):</p>
+
+<p><img src="/assets/images/covid-prediction/cv2.png" alt="GGOs' detection" /></p>
+
+<p>For our particular project, we selected CV2 because it did not represent a conflict when interpreting the BGR channels of the images. Once we had all images already read, we needed to reshape them all, otherwise our model would need to have a huge input layer and would took really long to be trained. One more limitation: Notebook RAMs are not infinite, so we needed to keep images’ sizes really small. After some research, we found out that the best image size would be 128x128: if they were smaller, the prediction accuracy won’t be that good, bigger images would represent an issue for our RAM capacities.</p>
+
+<p>Second hit against the wall: Our dataset is pretty unbalanced, but that’s not the only problem: how are we supposed to train our model with only 3000 images? That doesn’t make any sense. The best way to solve this is to apply <strong>data augmentation techniques</strong>: Starting from a single image, we generate several others applying random transformations to it - we rotate it, zoom it in, zoom it out, make it a little bit darker or lighter and boom: we could generate 36 more images for every single one in our original dataset. At the end of this process, we were able to get good quality data from very little entries.</p>
+
+<p>Third hit against the wall: RAM capacities. Even when you get a very large dataset starting from almost nothing, the low RAM delivered by most of the notebooks out there won’t allow you to process it. The solution: Limit our huge dataset to only 5000 images for every class, in total 15000 images which should be enough to get good results, or at least that’s the theory.</p>
+
+<p>At this point we were good, our dataset was balanced and with an acceptable shape. It was time to build our neural net and see how it behaved.</p>
+
+<h1 id="building-the-neural-network">Building the Neural Network</h1>
+
+<p>We all know the best image classifiers are Neural Nets, particularly Convolutional NNs that are crucial in Computer Vision - Inspired by how human vision works, layers of a convolutional network have neurons arranged in three dimensions, so layers have a width, height, and depth. The neurons in a convolutional layer are only connected to a small, local region of the preceding layer, so we avoid the wastefulness of fully-connected neurons. A convolutional layer’s function can be expressed simply: it processes a three-dimensional volume of information to produce a new three-dimensional volume of information.</p>
+
+<p>Why are they called <strong>Convolutional</strong> though? Let’s say that we want to detect vertical and horizontal lines in the image. One approach would be to use an appropriate feature detector, as shown the image below. For example, to detect vertical lines, we would use the feature detector on the top, slide it across the entirety of the image, and at every step check if we have a match. We keep
+track of our answers in the matrix in the top right. If there’s a match, we shade the appropriate black box. If there isn’t, we leave it white. This result is our feature map, and it indicates where we’ve found the feature we’re looking for in the original
+image. We can do the same for the horizontal line detector (bottom), resulting in the feature map in the bottom-right corner.</p>
+
+<p><img src="/assets/images/covid-prediction/convolution.png" alt="Convolution" />
+This operation is called a <strong>convolution</strong>. We take a filter and we multiply it over the entire area of an input image.</p>
+
+<p>In this case we will create our own Convolutional Neural Network and will keep it as simpler as possible, because most of the times it’s not necessary to build up a complex NN to reach good numbers. This time we’ll build it with some help of <strong>TensorFlow</strong>.</p>
+
+<h2 id="cnn-architecture-and-model-explanation">CNN architecture and model explanation</h2>
+
+<p>A very common architecture for a CNN is a stack of Conv2D and MaxPooling layers followed by a few densily connected layers which act as classifiers. The core idea is that the stack of Convolutional and MaxPooling layers extract the features from the image, then these features are flattened and feed to densily connected layers that determine the class of an image based on the presence of features.</p>
+
+<ul>
+  <li>
+    <p>Layer 1: Our images are 128x128 pixels of dimension; in addition, our input layer will contain 128 filters of size 3x3. In other words, we will detect 128 patterns and our response map will have dimension 126x126 (3x42 = 126) and depth of 128.</p>
+  </li>
+  <li>
+    <p>Layer 2: The idea behind a pooling layer is to downsample our feature maps and reduce our dimensions. In this case the window will be a 2x2 frame with stride of 2 (default).</p>
+  </li>
+  <li>
+    <p>Other layers: The next ones do very similar things but take as input the feature map from the previous layer. They increase the frequency of the filters (because previous layers shrink spacial dimensions) in order to gain more depth.</p>
+  </li>
+</ul>
+
+<p>After stacking our layers implementing a Keras Sequential model, this is its summary:</p>
+
+<pre><code class="language-python">Model: "sequential"
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+conv2d (Conv2D)              (None, 126, 126, 128)     3584      
+_________________________________________________________________
+max_pooling2d (MaxPooling2D) (None, 63, 63, 128)       0         
+_________________________________________________________________
+conv2d_1 (Conv2D)            (None, 61, 61, 256)       295168    
+_________________________________________________________________
+max_pooling2d_1 (MaxPooling2 (None, 30, 30, 256)       0         
+_________________________________________________________________
+conv2d_2 (Conv2D)            (None, 28, 28, 256)       590080    
+_________________________________________________________________
+flatten (Flatten)            (None, 200704)            0         
+_________________________________________________________________
+dense (Dense)                (None, 256)               51380480  
+_________________________________________________________________
+dense_1 (Dense)              (None, 3)                 771       
+=================================================================
+Total params: 52,270,083
+Trainable params: 52,270,083
+Non-trainable params: 0
+_________________________________________________________________
+
+</code></pre>
+
+<p>We compiled it using Adam optimization which is a stochastic Gradient Descent method - <strong>Gradient descent</strong> is an optimization algorithm used to minimize some function (in this case the loss function) by iteratively moving in the direction of the <em>steepnest descent</em> as defined by the negative of the gradient. In ML we use Gradient Descent to update the parameters of our model btw. This is what Gradient Descent does, for better understanding:</p>
+
+<p><img src="/assets/images/covid-prediction/gradientdescent.png" alt="Gradient descent" /></p>
+
+<h2 id="neural-network-training">Neural Network training</h2>
+
+<p>Alright, I hope you have survived the theorical part because I know it can be very boring. The good thing is that we’ve reached the best part: <em>How well our model performed?</em> We did set 6 epochs only (because we didn’t want the training took too long as we were using only GPU processing) and it achieved awesome results! Amazingly the very simple but well designed model architecture was enough to learn the data in a brilliant way. See the results by yourself:</p>
+
+<pre><code class="language-python">Epoch 1/6
+352/352 [==============================] - 16s 45ms/step - loss: 19.5146 - accuracy: 0.6339 - val_loss: 0.7643 - val_accuracy: 0.6813
+Epoch 2/6
+352/352 [==============================] - 15s 43ms/step - loss: 0.8445 - accuracy: 0.6920 - val_loss: 2.2498 - val_accuracy: 0.5555
+Epoch 3/6
+352/352 [==============================] - 15s 44ms/step - loss: 0.6472 - accuracy: 0.7738 - val_loss: 0.3299 - val_accuracy: 0.8840
+Epoch 4/6
+352/352 [==============================] - 15s 44ms/step - loss: 0.9024 - accuracy: 0.8520 - val_loss: 0.3334 - val_accuracy: 0.8955
+Epoch 5/6
+352/352 [==============================] - 15s 43ms/step - loss: 0.2785 - accuracy: 0.9062 - val_loss: 0.7440 - val_accuracy: 0.7376
+Epoch 6/6
+352/352 [==============================] - 15s 43ms/step - loss: 0.2635 - accuracy: 0.9156 - val_loss: 0.2185 - val_accuracy: 0.9403
+</code></pre>
+
+<p>Fantastic! Isn’t it? At this point we’ve covered the most complex part but, how did it behave on unseen data?</p>
+
+<pre><code class="language-python">118/118 - 2s - loss: 0.2185 - accuracy: 0.9403
+Model accuracy:  0.9402666687965393
+</code></pre>
+
+<p>We’ve achieved what we wanted. Very good results with a very simple model! 94% of accuracy for a so simple model is more than good. What about its confusion matrix?</p>
+
+<p><img src="/assets/images/covid-prediction/confusionmatrix.png" alt="Confusion Matrix" /></p>
+
+<p>The model detects 98% of COVID-19 cases, so we would be dealing with 2% of error (False Negatives) which I know it’s high when talking in the medical matter, COVID-19 detection error should be 0%, but consider that this model is really simple and it has been built with very little amount of data. Imagine its capabilities if we could find more images and add it some more complexity, maybe adding a pre-trained model - we would be really close to 0%, don’t you think?</p>
+
+<p>Alright, it’s to time explain another important step about this project.</p>
+
+<h1 id="building-the-application-interface">Building the application interface</h1>
+
+<p>I chose Flask as the framework to create the app around the predictor - We all know Flask library is fantastic when talking about web apps because it allows you to create whatever you want but also because it’s pretty straightforward and fast.</p>
+
+<p>If you don’t know what Flask is, it’s essentially a micro web framework written in Python. It is classified as a microframework because it does not require particular tools or libraries. It has no database abstraction layer, form validation, or any other components where pre-existing third-party libraries provide common functions. However, Flask supports extensions that can add application features as if they were implemented in Flask itself. Another important Flask factor is that very popular apps have been created with it, such as Pinterest and LinkedIn.</p>
+
+<p>Said this, let’s deep dive into the creation process. I focused on building not only a functional app but also a very fancy interface. In order to achieve this I used HTML5, CSS3 and Bootstrap with the help of Boostrap Studio, which makes the process faster than writing code in a text editor - a very old fashioned way btw. I’ll guide you through the app interface:</p>
+
+<p>This is how the <strong>index</strong> looks like:</p>
+
+<p><img src="/assets/images/covid-prediction/index1.png" alt="index1" />
+<img src="/assets/images/covid-prediction/index2.png" alt="index2" />
+<img src="/assets/images/covid-prediction/index3.png" alt="index3" />
+<img src="/assets/images/covid-prediction/index4.png" alt="index4" /></p>
+
+<p>This is how the <strong>predict</strong> section looks like and works:</p>
+
+<p><img src="/assets/images/covid-prediction/predict.png" alt="predict" /></p>
+
+<p>You must upload a chest X-ray image to then get the prediction - let’s try with a positive <strong>COVID-19 case</strong>:</p>
+
+<p><img src="/assets/images/covid-prediction/predict-1.png" alt="predict-1" /></p>
+
+<p>Its prediction:</p>
+
+<p><img src="/assets/images/covid-prediction/predict-2.png" alt="predict-2" /></p>
+
+<p>Let’s upload now a chest X-ray image from a <strong>positive Viral Pneumonia</strong>  patient:</p>
+
+<p><img src="/assets/images/covid-prediction/predict-3.png" alt="predict-3" /></p>
+
+<p>It’s prediction:</p>
+
+<p><img src="/assets/images/covid-prediction/predict-4.png" alt="predict-4" /></p>
+
+<p>What about a <strong>helthy patient</strong>? Let’s try that out:</p>
+
+<p><img src="/assets/images/covid-prediction/predict-5.png" alt="predict-5" /></p>
+
+<p>It’s prediction:</p>
+
+<p><img src="/assets/images/covid-prediction/predict-6.png" alt="predict-6" /></p>
+
+<p><strong>B R I L L I A N T !</strong> Isn’t it? I’ve tested the app to ensure it returns good predictions and it has impressed me, honestly. I hope it’s generated the same effect on you though.</p>
+
+<p>Alright, we’ve gone through data preprocessing, data augmentation, model training, the interface creation, now we’re needing just one more thing to get our project complete: <em>the app deployment</em> and that, mate, is going to be our next topic.</p>
+
+<h1 id="deploying-the-application">Deploying the application</h1>
+
+<p>I would say this is the most important part but also the one that most people ignore. It’s not that simple as press <strong>deploy button</strong> and that’s it, your app is up and running, no. You have to take care about several things. Is it going to be deployed in a serverless ecosystem? Are you gonna dockerize it? Or just going to deal with a whole web server? Another important thing: Are you going to use Google Cloud Platform, AWS, Azure or just deploy it on Heroku? You have to deal with several software engineering stuff out there. These are the topics that I’m gonna discuss down below.</p>
+
+<h2 id="choosing-the-cloud-provider">Choosing the Cloud provider</h2>
+
+<p>There are multiple solutions out there, this step is very crucial. I chose <strong>AWS</strong> because I know how to use most of its services but I’m gonna explain some other important factors: Even when you could consider AWS pretty complex (which it is), it’s very robust and provides hundreds of features that can be adapted to your application. Maybe Heroku is straightforward and also free, but have you tried to deploy a Deep Learning model on it? It’s just a nightmare. You’re gonna have to deal with several hardware capacity issues and will make this step very painful. What about Google Cloud Platform? This is a fantastic solution, it’s widely used with tons of documentation resources but if you compare it with AWS, it’s not that clear about <em>pricing</em>, so I just skipped it. There are several other providers but when you’re facing a project you need to care about how well documented their solutions are because believe me, you’re gonna need to research a lot.</p>
+
+<p>Ok so <strong>AWS</strong> but, what to choose between their vast universe of cloud solutions?</p>
+
+<h2 id="the-computing-resource">The computing resource</h2>
+
+<p>I’m going to be brutally honest with you: I love <strong>EC2 instances</strong>. From my perspective ithey are the best cloud computing resource for a simple reason: they feel like you’re dealing with a computer. Even when you have to manage with several stuff, you also have complete control of the machine. It’s as simple as ssh into the instance and start doing whatever you’re gonna do through the CLI. You need to scale up your application? Cool, upload it to S3 and set an auto-scaling feature that load-balances the traffic an starts an EC2 when required. It sounds complex but believe me, it’s not. To keep it simple though, I just prepared a single <em>AWS EC2 instance</em>, no auto-scaling. Let’s deep dive into it:</p>
+
+<h2 id="the-ec2-instances-prep">The EC2 instance’s prep</h2>
+
+<p>Deploying a Deep Learning model can get complex because most of them demand tons of hardware resources so, how did I do this process as painless as possible?</p>
+
+<ul>
+  <li>Just launched the AWS console, went straight to EC2 and launched a Deep Learning instance running Ubuntu 18.04, which allows you to run TensorFlow/Keras models easily. It already has all libraries preloaded so don’t have to worry about virtual environments, libraries’ installation, pretty straightforward, but if you need anything else then run the classic sudo apt-get install <em>the package</em>.</li>
+  <li>I had to take the extra-mile with the instance type. T2.micro won’t have enough resources to deal with TensorFlow, so had to choose t2.medium and go outside of the free-tier (It worths it).</li>
+  <li>Created some inbound rules to allow incoming port 8080’s traffic. Also had to create a 100GB SSD virtual drive for this instance. Once that was done, just launched it.</li>
+  <li>Once the instance was up and running, I SSHed into it, ran <em>source activate tensorflow_p36</em> and got the TensorFlow backend configured.</li>
+  <li>I uploaded all my project folder (previously tested my API locally and made sure it was working OK) to the EC2’s root directory, then ran &gt;<em>python COVID-Predict.py</em> and <strong>VOILA</strong>: A totally functional ML application running on top of AWS.</li>
+</ul>
+
+<p>Of course I encountered several conflicts along the run, it’s pretty normal, but I’m 100% sure that other way would have been more complex.</p>
+
+<h1 id="conclusions">Conclusions</h1>
+
+<p>Even when traditional med people wouldn’t agree with this kind of implementation because diagnosis cannot be tied to an X-ray image, there are several similar med applications out there using AI that can achieve very good numbers and results, and they will be more frequent with the pass of the time. Things are going forward at speed of light, so we have to be prepared and open-minded.</p>
+
+<p>In this particular case, several things can be improved but would be required to work with some kind of SMEs that can provide strong medical basis and perform a very deep research to know the actual scope and how reliable an application like this can be. Applications that deal with diagnosis need to have strong med foundations, it’s more than just engineering. Meanwhile, from the engineering perspective, computer vision is solving really complex problems around the world and outside of it as well. It’s only a matter of time until machine learning begins to make big changes in the medical field.</p>
+
+<p>Hope you’ve enjoyed this reading.</p>
+
+<p>If you want to know more, please check the project notebook <a href="https://github.com/sergiovirahonda/COVID-19-Prediction/blob/master/COVID-19-Chest-X-Ray-Exploration.ipynb">here</a> or the whole project <a href="https://github.com/sergiovirahonda/COVID-19-Prediction">here</a>.</p>
+
+<p>See you around!</p>
+
+</div>
+
+<!-- Rating -->
+
+<div class="rating mt-4 mb-4 d-flex align-items-center">
+    <strong class="mr-1">Rating:</strong> <div class="rating-holder">
+<div class="c-rating c-rating--regular" data-rating-value="4.5">
+  <button>1</button>
+  <button>2</button>
+  <button>3</button>
+  <button>4</button>
+  <button>5</button>
+</div>
+</div>
+</div>
+
+
+<!-- Author Box if enabled from _config.yml -->
+<!-- Author Box -->
+
+
+
+
+<!-- Comments if not disabled with comments: false -->
+<!-- Comments
+================================================== -->
+
+
+<!-- Share -->
+<div class="share">
+    <p>
+        Share
+    </p>
+    <ul>
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://twitter.com/intent/tweet?text=COVID-19 prediction by chest X-Ray image processing&url=http://localhost:4000/covid-19-api/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <i class="fab fa-twitter"></i>
+            </a>
+        </li>
+
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://facebook.com/sharer.php?u=http://localhost:4000/covid-19-api/" onclick="window.open(this.href, 'facebook-share', 'width=550,height=435');return false;">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+        </li>
+
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/covid-19-api/" onclick="window.open(this.href, 'width=550,height=435');return false;">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+        </li>
+
+    </ul>
+</div>
+
+
+<!-- Related Post -->
+<!-- Related Posts
+================================================== -->
+<div class=" related-posts ">  
+
+    
+    <h2 class="text-center mb-4">Explore more like this</h2>
+    
+    
+    <div class="d-flex justify-content-center align-items-center">
+    
+    <!-- Categories -->
+    
+    
+    <a class="smoothscroll badge badge-primary text-capitalize" href="/categories#Data-Science">Data Science</a>                
+    
+    <a class="smoothscroll badge badge-primary text-capitalize" href="/categories#Flask">Flask</a>                
+    
+    <a class="smoothscroll badge badge-primary text-capitalize" href="/categories#Python">Python</a>                
+    
+
+    <!-- Tags -->  
+    
+    
+
+    </div>
+
+    
+    
+    
+    <div class="blog-grid-container">
+        
+        
+            
+            
+        
+            
+        
+            
+        
+        
+        
+            
+            
+        
+            
+        
+            
+            <!-- begin post -->
+
+
+<div class="blog-grid-item">
+    <div class="card h-100">
+        <div class="maxthumb">
+            <a href="/a-flask-app/">
+                
+
+                    
+                        <img class="img-thumb" src="/assets/images/flask-app-post/flask-app.jpg" alt="A Flask web application to increase the A2 Softway's scope"> 
+                    
+
+                
+            </a>
+        </div>
+        <div class="card-body">
+            <h2 class="card-title">
+                <a class="text-dark" href="/a-flask-app/">A Flask web application to increase the A2 Softway's scope</a>
+                
+                <div class="mb-2 mt-2 font-weight-normal">
+                <div class="rating-holder">
+<div class="c-rating c-rating--regular" data-rating-value="4.5">
+  <button>1</button>
+  <button>2</button>
+  <button>3</button>
+  <button>4</button>
+  <button>5</button>
+</div>
+</div>
+                </div>
+                
+            </h2>
+            <h4 class="card-text">Hi there. I’ll introduce a very recent web application that I’ve been developing for a well known organization in Central America. I cannot reveal the name for obvious reasons but...</h4>
+        </div>
+        <div class="card-footer bg-white">
+            <div class="wrapfooter">
+                
+                <span class="meta-footer-thumb">
+                
+                <img class="author-thumb" src="/assets/images/avatar.png" alt="Sergio">
+                
+                </span>
+                <span class="author-meta">
+                <span class="post-name"><a target="_blank" href="https://sergiovirahonda.github.io">Sergio</a></span> 
+                
+                <span class="post-date">26 Jul 2020</span>
+                </span>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end post -->
+            
+            
+            
+        
+        
+        </div>        
+</div>
+
+<!-- Review with LD-JSON, adapt it for your needs if you like, but make sure you test the generated HTML source code first: 
+https://search.google.com/structured-data/testing-tool/u/0/
+================================================== -->
+
+    <script type="application/ld+json">
+    {
+    "@context": "http://schema.org/",
+    "@type": "Review",
+    "itemReviewed": {
+    "@type": "Thing",
+    "name": "COVID-19 prediction by chest X-Ray image processing"
+    },
+    "author": {
+    "@type": "Person",
+    "name": "Sergio"
+    },
+    "datePublished": "2020-08-04",
+    "reviewRating": {
+    "@type": "Rating",
+    "ratingValue": "4.5",
+    "bestRating": "5"
+    }
+    }
+    </script>
+
+    </div>
+
+    
+    <!-- Newsletter
+    ================================================== -->
+    <div class="newsletter text-center">
+        <span class="h4"><img src="/assets/images/logo.png" class="newsletter-logo" alt="Sergio Virahonda"> &nbsp; Stay updated, <b>subscribe to my newsletter.</b></span>
+        <form action="https://wowthemes.us11.list-manage.com/subscribe/post?u=8aeb20a530e124561927d3bd8&amp;id=8c3d2d214b" method="post" name="mc-embedded-subscribe-form" class="wj-contact-form validate" target="_blank" novalidate>
+            <div class="mc-field-group d-inline-flex">
+            <input type="email" placeholder="Your e-mail" name="EMAIL" class="required email" id="mce-EMAIL" autocomplete="on" required>
+            <input type="submit" value="Subscribe" name="subscribe" class="heart">
+            </div>
+        </form>
+    </div>
+    
+    
+</div>
+
+<!-- Begin Footer
+================================================== -->
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-12 text-center text-lg-left">
+                Copyright © 2020 Sergio Virahonda 
+            </div>
+            <div class="col-md-6 col-sm-12 text-center text-lg-right">    
+                <a target="_blank" href="https://github.com">Site hosted on top of GitHub :)</a>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- End Footer
+================================================== -->
+
+</div> <!-- /.site-content -->
+
+<!-- Scripts (if you need bootstrap.js, please add it yourself. I didn't use it for performance reasons, it was not needed in this theme)
+================================================== -->
+
+<script src="/assets/js/prism.js"></script>
+
+<script src="/assets/js/theme.js"></script>
+
+
+
+
+<script id="dsq-count-scr" src="//demowebsite.disqus.com/count.js"></script>
+
+
+</body>
+</html>
