@@ -1,0 +1,192 @@
+I"�<h4 id="hey-its-nice-to-see-you-around">Hey! It’s nice to see you around.</h4>
+
+<p>These are my latest projects. Feel free to check them out and if any is of your interest, just bookmark it :)</p>
+
+<div class="main-content">
+        <!-- Posts Index
+================================================== -->
+<div class="blog-grid-container">
+    
+        <!-- begin post -->
+
+
+<div class="blog-grid-item">
+    <div class="card h-100">
+        <div class="maxthumb">
+            <a href="/chasesupport-nlp/">
+                
+
+                    
+                        <img class="img-thumb" src="/assets/images/chasesupport/customer-support.jpg" alt="ChaseSupport Tweets Exploration &amp; Analysis" /> 
+                    
+
+                
+            </a>
+        </div>
+        <div class="card-body">
+            <h2 class="card-title">
+                <a class="text-dark" href="/chasesupport-nlp/">ChaseSupport Tweets Exploration &amp; Analysis</a>
+                
+                <div class="mb-2 mt-2 font-weight-normal">
+                <div class="rating-holder">
+<div class="c-rating c-rating--regular" data-rating-value="4.2">
+  <button>1</button>
+  <button>2</button>
+  <button>3</button>
+  <button>4</button>
+  <button>5</button>
+</div>
+</div>
+                </div>
+                
+            </h2>
+            <h4 class="card-text">Hi there! It’s nice you see you around.
+</h4>
+        </div>
+        <div class="card-footer bg-white">
+            <div class="wrapfooter">
+                
+                <span class="meta-footer-thumb">
+                
+                <img class="author-thumb" src="/assets/images/avatar.png" alt="Sergio" />
+                
+                </span>
+                <span class="author-meta">
+                <span class="post-name"><a target="_blank" href="https://sergiovirahonda.github.io">Sergio</a></span> 
+                
+                <span class="post-date">05 Aug 2020</span>
+                </span>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end post -->
+    
+        <!-- begin post -->
+
+
+<div class="blog-grid-item">
+    <div class="card h-100">
+        <div class="maxthumb">
+            <a href="/covid-19-api/">
+                
+
+                    
+                        <img class="img-thumb" src="/assets/images/covid-prediction/covid-app.jpg" alt="COVID-19 prediction by chest X-Ray image processing" /> 
+                    
+
+                
+            </a>
+        </div>
+        <div class="card-body">
+            <h2 class="card-title">
+                <a class="text-dark" href="/covid-19-api/">COVID-19 prediction by chest X-Ray image processing</a>
+                
+                <div class="mb-2 mt-2 font-weight-normal">
+                <div class="rating-holder">
+<div class="c-rating c-rating--regular" data-rating-value="4.5">
+  <button>1</button>
+  <button>2</button>
+  <button>3</button>
+  <button>4</button>
+  <button>5</button>
+</div>
+</div>
+                </div>
+                
+            </h2>
+            <h4 class="card-text">Hello folks, how’s It going? I’m going to talk in this post about one of my favorite projects that I’ve worked so far, so hopefully you enjoy this read. It’s...</h4>
+        </div>
+        <div class="card-footer bg-white">
+            <div class="wrapfooter">
+                
+                <span class="meta-footer-thumb">
+                
+                <img class="author-thumb" src="/assets/images/avatar.png" alt="Sergio" />
+                
+                </span>
+                <span class="author-meta">
+                <span class="post-name"><a target="_blank" href="https://sergiovirahonda.github.io">Sergio</a></span> 
+                
+                <span class="post-date">04 Aug 2020</span>
+                </span>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end post -->
+    
+        <!-- begin post -->
+
+
+<div class="blog-grid-item">
+    <div class="card h-100">
+        <div class="maxthumb">
+            <a href="/a-flask-app/">
+                
+
+                    
+                        <img class="img-thumb" src="/assets/images/flask-app-post/flask-app.jpg" alt="A Flask web application to increase the A2 Softway's scope" /> 
+                    
+
+                
+            </a>
+        </div>
+        <div class="card-body">
+            <h2 class="card-title">
+                <a class="text-dark" href="/a-flask-app/">A Flask web application to increase the A2 Softway's scope</a>
+                
+                <div class="mb-2 mt-2 font-weight-normal">
+                <div class="rating-holder">
+<div class="c-rating c-rating--regular" data-rating-value="4.5">
+  <button>1</button>
+  <button>2</button>
+  <button>3</button>
+  <button>4</button>
+  <button>5</button>
+</div>
+</div>
+                </div>
+                
+            </h2>
+            <h4 class="card-text">Hi there. I’ll introduce a very recent web application that I’ve been developing for a well known organization in Central America. I cannot reveal the name for obvious reasons but...</h4>
+        </div>
+        <div class="card-footer bg-white">
+            <div class="wrapfooter">
+                
+                <span class="meta-footer-thumb">
+                
+                <img class="author-thumb" src="/assets/images/avatar.png" alt="Sergio" />
+                
+                </span>
+                <span class="author-meta">
+                <span class="post-name"><a target="_blank" href="https://sergiovirahonda.github.io">Sergio</a></span> 
+                
+                <span class="post-date">26 Jul 2020</span>
+                </span>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end post -->
+    
+</div>
+
+<!-- Pagination
+================================================== -->
+<div class="bottompagination">
+<span class="navigation" role="navigation">
+    
+</span>
+</div>
+
+
+    </div>
+<div style="text-align: center;align-items: center;justify-content: center;">
+    <p>Wanna check the codes?</p>
+    <p><a target="_blank" href="https://github.com/sergiovirahonda" class="btn btn-dark" style="text-align: center;text-align: center;text-align: center;"> Check my GitHub repo→</a></p>
+</div>
+:ET

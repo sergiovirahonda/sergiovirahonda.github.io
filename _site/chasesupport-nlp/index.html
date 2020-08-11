@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link rel="icon" href="/assets/images/logo.png">
+
+<title>ChaseSupport Tweets Exploration & Analysis | Sergio Virahonda</title>
+
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>ChaseSupport Tweets Exploration &amp; Analysis | Sergio Virahonda</title>
+<meta name="generator" content="Jekyll v4.1.0" />
+<meta property="og:title" content="ChaseSupport Tweets Exploration &amp; Analysis" />
+<meta name="author" content="sergio" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Hi there! It’s nice you see you around. In this post I’m going to walk you through a very frequent business case. You all know that Customer Support service is a very important link in the customer satisfaction process and management is very keen when measuring the agents, all this because of the importance they have for a company, doesn’t matter its nature. A product/service can be fantastic, but if the client needs some guidance/support afterwards and it’s not as good as the product, it will automatically become a terrible experience." />
+<meta property="og:description" content="Hi there! It’s nice you see you around. In this post I’m going to walk you through a very frequent business case. You all know that Customer Support service is a very important link in the customer satisfaction process and management is very keen when measuring the agents, all this because of the importance they have for a company, doesn’t matter its nature. A product/service can be fantastic, but if the client needs some guidance/support afterwards and it’s not as good as the product, it will automatically become a terrible experience." />
+<link rel="canonical" href="http://localhost:4000/chasesupport-nlp/" />
+<meta property="og:url" content="http://localhost:4000/chasesupport-nlp/" />
+<meta property="og:site_name" content="Sergio Virahonda" />
+<meta property="og:image" content="http://localhost:4000/assets/images/chasesupport/customer-support.jpg" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-08-05T00:00:00-06:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","headline":"ChaseSupport Tweets Exploration &amp; Analysis","dateModified":"2020-08-05T00:00:00-06:00","datePublished":"2020-08-05T00:00:00-06:00","url":"http://localhost:4000/chasesupport-nlp/","image":"http://localhost:4000/assets/images/chasesupport/customer-support.jpg","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/chasesupport-nlp/"},"author":{"@type":"Person","name":"sergio"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/images/logo.png"},"name":"sergio"},"description":"Hi there! It’s nice you see you around. In this post I’m going to walk you through a very frequent business case. You all know that Customer Support service is a very important link in the customer satisfaction process and management is very keen when measuring the agents, all this because of the importance they have for a company, doesn’t matter its nature. A product/service can be fantastic, but if the client needs some guidance/support afterwards and it’s not as good as the product, it will automatically become a terrible experience.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    
+<link href="/assets/css/prism.css" rel="stylesheet">
+
+<link href="/assets/css/theme.css" rel="stylesheet">
+
+<script src="/assets/js/jquery.min.js"></script>
+
+</head>
+
+
+
+
+<body>
+	<!-- defer loading of font and font awesome -->
+	<noscript id="deferred-styles">
+		<link href="https://fonts.googleapis.com/css?family=Sen:400,700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+	</noscript>
+
+<!-- Begin Sidebar Navigation
+================================================== -->
+
+<div class="sidebar">    
+</div>   
+<div class="nav-icon">
+    <div class="hamburger-bar"></div>
+</div>
+<div id="blackover-nav" class="blackover"></div>
+<nav id="menu">
+    <ul>
+        <h3>Navigation</h3>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about">About <span class="badge badge-primary">me</span></a></li>   
+        <li><a href="/repo">Projects & Repo</a></li>    
+        <li><a href="/contact">Contact</a></li>       
+    </ul>   
+</nav>
+
+<script src="/assets/js/lunr.js"></script>
+
+<style>
+    
+</style>
+
+<div class="wrap-search">
+    <div class="d-flex align-items-center ml-auto">
+        <i class="fas fa-search show-search"></i>
+        <form class="bd-search ml-3" onSubmit="return lunr_search(document.getElementById('lunrsearch').value);">
+            <input type="text" class="form-control bigradius text-small launch-modal-search" id="lunrsearch" name="q" maxlength="255" value="" placeholder="Type and enter..."/>
+        </form>
+    </div>
+</div>
+
+<div id="lunrsearchresults">
+    <ul></ul>
+</div>
+
+<script src="/assets/js/lunrsearchengine.js"></script>
+
+
+<!-- End Sidebar Navigation
+================================================== -->
+
+<div class="site-content ">
+
+<div class="container">
+
+    <!-- Site Logo/Name
+    ================================================== -->
+   
+    <a class="navbar-brand" href="/">
+        <img src="/assets/images/logo.png" alt="Sergio Virahonda">
+    </a>  
+   
+
+    <!-- Site Tag
+    ================================================== -->
+    
+
+    <!-- Content
+    ================================================== -->
+    <div class="main-content">
+        <div class="entry-header">
+    <!-- Post Title -->
+    <h1 class="posttitle">ChaseSupport Tweets Exploration & Analysis</h1>
+    <!-- Author & Date  Box -->
+    
+    
+    <div class="d-flex align-items-center mt-4">
+        <div>
+            
+            <img class="author-thumb" src="/assets/images/avatar.png" alt="Sergio">
+            
+        </div>            
+        <div>
+        Written by <a target="_blank" class="text-dark" href="https://sergiovirahonda.github.io">Sergio</a> on 
+        <span class="post-date"><time class="post-date" datetime="2020-08-05">05 Aug 2020</time></span>           
+        
+        </div>            
+    </div>
+    
+</div>
+
+<!-- Adsense under title if enabled from _config.yml (change your pub id and slot) -->
+
+
+<!-- Featured Image -->
+
+<div class="entry-featured-image">
+    
+    <img class="featured-image " src="/assets/images/chasesupport/customer-support.jpg" alt="ChaseSupport Tweets Exploration & Analysis">
+    
+</div>
+
+
+<!-- Content -->
+<!-- Post, Page Content
+================================================== -->
+<div class="article-post">
+    <!-- Toc if any -->
+    
+    <!-- End Toc -->
+    <p>Hi there! It’s nice you see you around. In this post I’m going to walk you through a very frequent business case. You all know that Customer Support service is a very important link in the customer satisfaction process and management is very keen when measuring the agents, all this because of the importance they have for a company, doesn’t matter its nature. A product/service can be fantastic, but if the client needs some guidance/support afterwards and it’s not as good as the product, it will automatically become a terrible experience.</p>
+
+<p>The main issue with the Twitter Customer Support is that there’s no way to measure the agents’ performance, because the clients don’t provide feedback at all. So, how could the interactions experience be measured? And in the case the business would want to implement a chatbot or simply automated responses for some specific topics, how could this be achieved? I’ll explain how Natural Language Processing and Topic Modeling could boost a business need of this nature. Let’s get hands on.</p>
+
+<h1 id="the-dataset">The dataset</h1>
+
+<p>I found this dataset publicly available at <a href="https://www.kaggle.com/thoughtvector/customer-support-on-twitter">Kaggle</a> and contains tweets for several companies around the world. Basically all of them are Customer Support interactions (company and customer ends) and vary depending on the nature of the business. You will find there tweets from Apple Support, AmazonHelp, among others. I focused on ChaseSupport tweets because they involve a very crucial topic for all of us: <strong>Money</strong>. There’s were you could get most unsatisfied people. It contains around 8700 tweets with their respective responses from the client’s side.</p>
+
+<h1 id="the-tweets-preprocessing">The tweets preprocessing</h1>
+
+<p>Alright, we’ve got a bunch of tweets, most of them without any order, containing URLs, hashtags, mentions, etc. We don’t know which tweet from Customer Support has been responded and a response to what tweet? So essentially what I did was to put them together: The customer tweet asking for assistance together with its response from ChaseSupport team. The next stage was to get both timestamps which are really crucial to get important metrics such as time-to-response, most busy days and hours. In addition, exists the need to clean them all and remove all undesired characters/expressions that would only add noise to our analysis. To achieve this, I’ve implemented some functions written by myself but also used lemmatizing from NLTK library which is known to achieve fantastic results.</p>
+
+<p>Between the tasks that I had to implement, I can mention standarizing the sentences by making them all lowercase, removing stopwords which are known to add tons of noise to the text explorations, remove punctuation to finally reach the lemmatizing process. Most of these tasks were done implementing NLTK library which is one of the bests for Natural Language Processing tasks.</p>
+
+<h1 id="premature-findings">Premature findings</h1>
+
+<p>With the help of some histograms I found some curious patterns, but let my explain myself how they would be useful: imagine three floors of a building full of agents, all of them replying tweets to the Chase customers. How could management distribute their shifts along the day to don’t leave the service without coverage but also to avoid delays in the support service? Is there any pattern that management can take advantage of and distrubute the agents’ shifts?</p>
+
+<h2 id="demand-distributions">Demand distributions</h2>
+
+<p>This is how the interactions per hour histogram looks like:</p>
+
+<p><img src="/assets/images/chasesupport/hours.png" alt="hist per hour" /></p>
+
+<p>The peaks of the day happen at 15 and 21 hours, but in general the most busy frame is since 15 to 21 hours though. Those would be the hours when most of the workforce must be deployed in order to reduce the time-to-response and keep a good customer-satisfaction. Also, team lunch-breaks can be taken from 11 to 14 without the risk of degrade the service. What about days along the week?:</p>
+
+<p><img src="/assets/images/chasesupport/days-week.png" alt="hist per week" /></p>
+
+<p>The most busy days are Tuesday and Wednesday, as you could see above. Management would need to have more agents these days to avoid delay in the service. Let’s see what about days of the month:</p>
+
+<p><img src="/assets/images/chasesupport/days-month.png" alt="hist per week" /></p>
+
+<p>Even when it looks to have a normal distribution, you can see the peak of interactions occurs at the end of the month, what is expected - It’s pay day. What about time-related metrics? How long does it take to get a response from ChaseSupport on twitter?</p>
+
+<h2 id="chasesupport-time-to-response">ChaseSupport time-to-response</h2>
+
+<p>This is a very crucial metric. You all know customer support teams need to reduce the time they take to reply the inquiries as much as possible. Otherwise the clients’ satisfaction will be reduced exponentially. Let’s explore the findings:</p>
+
+<ul>
+  <li>The average time-to-response is <strong>4 hours 52 minutes</strong> - that’s A LOT, it’s an eternity when talking about money issues, don’t you think?</li>
+  <li>The most delayed response took more than <strong>4 days</strong>. I researched about why it took so long and it was related to a complaint - not good, at all. Other related findings: Several complaints took this long to be replied. For this particular dataset (which is from 2018), ChaseSupport looked to have some issues when attending complaints.</li>
+</ul>
+
+<h1 id="tweets-vocabulary">Tweets’ vocabulary</h1>
+
+<p>This is very important. What are the Chase clients talking about? What are the most frequent words used? This exploration’s objective is to determine how the clients are expressing about the service and what are the topics more discussed. To be more figurative, let’s see at the words’ cloud (take your time to read all words, you’ll find out more than you think you’ll do):</p>
+
+<p><img src="/assets/images/chasesupport/wordscloud.png" alt="hist per week" /></p>
+
+<p>Well, there are obvious words we knew we’ll find, right? Bank, account, credit card, that’s obvious. Did you notice the words f-ck, sh-t, wtf and damn and their sizes? That says a lot about customer satisfaction, doesn’t it? In the other hand, you can get some other findings - People ask a lot about ‘Ultimate reward’, ‘Mobile App’, ‘credit card’, ‘debir card’ and so on. It’s very interesting, because you could use these topics to then reorganize the teams in ‘skills’ or specialists, just like most of help desk teams are divided into products. Let’s deep dive into this idea:</p>
+
+<h1 id="topic-modeling">Topic Modeling</h1>
+
+<p>What if the business is requiring to get the top topics discussed on Twitter? Maybe to segment teams in subdivisions or train some specialists. The best way would be to implement some sort of unsupervised learning algorithms and see what they would return, based on the tweets universe.</p>
+
+<h2 id="tweets-vectorization">Tweets vectorization</h2>
+
+<p>Alright, we now know that our models won’t accept more than numeric values. This is the reason why we need to convert all tweets into this kind of values, and the best way is through a vectorizer such as CountVectorizer or TFIDF Vectorizer. I implemented TFIDF Vectorizer which is known by deliver good results. Let’s introduce some theory about it:</p>
+
+<p>One of the best approaches when working with text data is to rescale features by how informative we expect them to be. One of the most common ways to do this is using the term frequency–inverse document frequency (tf–idf) method. The intuition of this method is to give high weight to any term that appears often in a particular document, but not in many documents in the corpus. If a word appears often in a particular document, but not in very many documents, it is likely to be very descriptive of the content of that document.</p>
+
+<p>Once we have our text transformed as numeric features, it’s time to apply Clustering techniques:</p>
+
+<h2 id="topic-modeling-through-clustering">Topic Modeling through Clustering</h2>
+
+<p>We won’t go too deep in this stage because the project does not require it, but in a real world scenario we would need to implement some research about, for example, find the best number of clusters for our model; but for this particular example, the business is the one that should define the number of clusters depending on the model output. Sometimes it makes more sense this way.</p>
+
+<p>We’ve implemented NMF model because it’s known to deliver good results and also train in short period of tme. Let’s see what patterns it found in the data.</p>
+
+<pre><code class="language-python">NMF
+Topic 0:
+customer service, bad customer service, bad customer, best customer service, best customer, customer service rep, service rep, terrible customer service, terrible customer, call customer service, call customer, great customer service, great customer, customer service suck, service suck, poor customer service, poor customer, horrible customer service, horrible customer, customer service help
+Topic 1:
+credit card, new credit card, new credit, pay credit card, pay credit, credit card account, card account, credit card bill, card bill, credit card number, card number, apply credit, apply credit card, credit card application, card application, credit card fraud, card credit, card fraud, card credit card, credit history
+Topic 2:
+debit card, new debit card, new debit, lose debit, lose debit card, replacement debit, replacement debit card, cyber monday, debit card hack, card hack, debit card number, debit card cancel, card cancel, order new, card u200d, card pretty, card wait, order new debit, card number, card asap
+Topic 3:
+bank account, new bank account, close bank account, new bank, close bank, bank account hack, open bank account, open bank, account hack, account doesn, bank account doesn, love bank, put money, dont bank, bank account fuck, money steal, business bank, account cancel, man bank, account could
+Topic 4:
+ultimate reward, ultimate reward site, reward site, ultimate reward website, reward website, ultimate reward portal, reward portal, ultimate reward travel, reward travel, hi ultimate, hi ultimate reward, ultimate reward dashboard, reward dashboard, email address, idea ultimate reward, idea ultimate, ultimate reward work, reward work, reward site down, ultimate reward available
+Topic 5:
+fuck bank, bad fuck, bad fuck bank, bank atm, bank smh, bank gonna, oh fuck, burn branch, stupid fuck bank, stupid fuck, bank seriously, money account, already fuck, already help, there fuck, bank tallahassee, bank ask, account already, customer claim, pay fuck
+Topic 6:
+close account, wait close account, wait close, help close, help close account, lose customer, run around, account yall, account asap, close account phone, six month, account u200d, account phone, money close account, money close, close account cause, account cause, suck close account, suck close, account isn
+Topic 7:
+sapphire reserve, reserve card, sapphire reserve card, priority pas, trip delay, sapphire reserve customer, reserve customer, 115873 credit, right now, renew sapphire, renew sapphire reserve, start work, card instead, book last, finally sapphire, fee totally, reserve already, freedom sapphire reserve, annual fee, freedom sapphire
+</code></pre>
+
+<h2 id="topics-interpretation">Topics’ Interpretation</h2>
+
+<p>Let’s give those outputs a good shape:</p>
+
+<ul>
+  <li>Topic 0: all tweets that contain those keywords must be attended by a team that receives <strong>Customer Support’s Complaints</strong> - Which attends upset clients that have had bad experiences with the support service, just like a help desk team would provide attention to “reopened” tickets.</li>
+  <li>Topic 1: all tweets in this category would need to be assisted by <strong>Credit Card inquiries</strong> team, and possibly the support would be continued by DM, to avoid any kind of fraud afterwards.</li>
+  <li>Topic 2: all tweets that fit this category must be assisted by <strong>Debit Card inquires</strong> team and same as before, continue the process through DM.</li>
+  <li>Topic 3: Ultimate Reward and other Customer Benefits or something like that, and this team would assist all inquiries related to the benefits the bank provides to its customers.</li>
+  <li>Topic 4: This topic could be interpreted as a negative one, and could be attended by <strong>Customer Retention</strong> team.</li>
+  <li>Topic 5: This is also a very sensitive topic, which could be attended by <strong>Customer Retention</strong> team or directly a team that handles the <strong>Banking Services’s Complaints</strong>.</li>
+  <li>Topic 6: Sapphire credit cards are provided to top clients, so definitely this topic would be assisted by <strong>VIP Support</strong> team.</li>
+  <li>Topic 7: This is very clear, and would be interpreted as <strong>Account operations</strong>.</li>
+</ul>
+
+<h1 id="conclusions">Conclusions</h1>
+
+<p>Even when the data is not labeled, we can see above what are the words and topics most discussed in the customer support service at Twitter. Applying the same methods, the business could extract the core subjects to get insights about their service and therefore, deploy some solutions - for example, a link with a how-to guide about how to self-resolve most recurrent issues - or how to know if a tweet is crucial to be answered ASAP or not. In addition, if going further would be required, the next step would be to label this data and build a predictor with a similar vectorizer to then create a chatbot. The solutions will depend on the business’ needs.</p>
+
+<p>In general terms and as shown before, the ChaseSupport tweets demostrate a very bad customer support, with very high time-to-response rates and if you take a close look to the words’ cloud you will find recurrent terminology that would indicate a negative sentiment in the clients’ interactions.</p>
+
+<p>In the case the business would need to increase the customer service NPS (or any other similar parameter), the 10.000-feet-above best way would be to reduce the time-to-response is to segment the support service into micro-teams, each one focusing on different topics, that way all pain points are covered.</p>
+
+<p>Finally, to achieve better results, maybe LDA must be implemented or even any Deep Learning model but again, all this in a real business scenario. Just to clarify, this post is not a critic about Chase support, It’s just an example scenario.</p>
+
+<p>The whole notebook is available in my <a href="https://github.com/sergiovirahonda/Chase-Support-Tweets-NLP/blob/master/chasesupport-tweets-analysis-nlp-modeling.ipynb">GitHub repo</a></p>
+
+<p>Hope you’ve enjoyed the read. See you around!</p>
+
+
+</div>
+
+<!-- Rating -->
+
+<div class="rating mt-4 mb-4 d-flex align-items-center">
+    <strong class="mr-1">Rating:</strong> <div class="rating-holder">
+<div class="c-rating c-rating--regular" data-rating-value="4">
+  <button>1</button>
+  <button>2</button>
+  <button>3</button>
+  <button>4</button>
+  <button>5</button>
+</div>
+</div>
+</div>
+
+
+<!-- Author Box if enabled from _config.yml -->
+<!-- Author Box -->
+
+
+
+
+<!-- Comments if not disabled with comments: false -->
+<!-- Comments
+================================================== -->
+
+
+<!-- Share -->
+<div class="share">
+    <p>
+        Share
+    </p>
+    <ul>
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://twitter.com/intent/tweet?text=ChaseSupport Tweets Exploration & Analysis&url=http://localhost:4000/chasesupport-nlp/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <i class="fab fa-twitter"></i>
+            </a>
+        </li>
+
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://facebook.com/sharer.php?u=http://localhost:4000/chasesupport-nlp/" onclick="window.open(this.href, 'facebook-share', 'width=550,height=435');return false;">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+        </li>
+
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/chasesupport-nlp/" onclick="window.open(this.href, 'width=550,height=435');return false;">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+        </li>
+
+    </ul>
+</div>
+
+
+<!-- Related Post -->
+<!-- Related Posts
+================================================== -->
+<div class=" related-posts ">  
+
+    
+    <h2 class="text-center mb-4">Explore more like this</h2>
+    
+    
+    <div class="d-flex justify-content-center align-items-center">
+    
+    <!-- Categories -->
+    
+    
+    <a class="smoothscroll badge badge-primary text-capitalize" href="/categories#Data-Science">Data Science</a>                
+    
+    <a class="smoothscroll badge badge-primary text-capitalize" href="/categories#NLP">NLP</a>                
+    
+    <a class="smoothscroll badge badge-primary text-capitalize" href="/categories#Python">Python</a>                
+    
+    <a class="smoothscroll badge badge-primary text-capitalize" href="/categories#Topic-Modeling">Topic Modeling</a>                
+    
+
+    <!-- Tags -->  
+    
+    
+
+    </div>
+
+    
+    
+    
+    <div class="blog-grid-container">
+        
+        
+            
+            
+        
+            
+        
+            
+        
+        
+        
+            
+            
+        
+            
+        
+            
+            <!-- begin post -->
+
+
+<div class="blog-grid-item">
+    <div class="card h-100">
+        <div class="maxthumb">
+            <a href="/covid-19-api/">
+                
+
+                    
+                        <img class="img-thumb" src="/assets/images/covid-prediction/covid-app.jpg" alt="COVID-19 prediction by chest X-Ray image processing"> 
+                    
+
+                
+            </a>
+        </div>
+        <div class="card-body">
+            <h2 class="card-title">
+                <a class="text-dark" href="/covid-19-api/">COVID-19 prediction by chest X-Ray image processing</a>
+                
+                <div class="mb-2 mt-2 font-weight-normal">
+                <div class="rating-holder">
+<div class="c-rating c-rating--regular" data-rating-value="4.5">
+  <button>1</button>
+  <button>2</button>
+  <button>3</button>
+  <button>4</button>
+  <button>5</button>
+</div>
+</div>
+                </div>
+                
+            </h2>
+            <h4 class="card-text">Hello folks, how’s It going? I’m going to talk in this post about one of my favorite projects that I’ve worked so far, so hopefully you enjoy this read. It’s...</h4>
+        </div>
+        <div class="card-footer bg-white">
+            <div class="wrapfooter">
+                
+                <span class="meta-footer-thumb">
+                
+                <img class="author-thumb" src="/assets/images/avatar.png" alt="Sergio">
+                
+                </span>
+                <span class="author-meta">
+                <span class="post-name"><a target="_blank" href="https://sergiovirahonda.github.io">Sergio</a></span> 
+                
+                <span class="post-date">04 Aug 2020</span>
+                </span>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end post -->
+            
+            
+            
+        
+        
+        
+            
+            
+        
+            
+        
+            
+            <!-- begin post -->
+
+
+<div class="blog-grid-item">
+    <div class="card h-100">
+        <div class="maxthumb">
+            <a href="/a-flask-app/">
+                
+
+                    
+                        <img class="img-thumb" src="/assets/images/flask-app-post/flask-app.jpg" alt="A Flask web application to increase the A2 Softway's scope"> 
+                    
+
+                
+            </a>
+        </div>
+        <div class="card-body">
+            <h2 class="card-title">
+                <a class="text-dark" href="/a-flask-app/">A Flask web application to increase the A2 Softway's scope</a>
+                
+                <div class="mb-2 mt-2 font-weight-normal">
+                <div class="rating-holder">
+<div class="c-rating c-rating--regular" data-rating-value="4.5">
+  <button>1</button>
+  <button>2</button>
+  <button>3</button>
+  <button>4</button>
+  <button>5</button>
+</div>
+</div>
+                </div>
+                
+            </h2>
+            <h4 class="card-text">Hi there. I’ll introduce a very recent web application that I’ve been developing for a well known organization in Central America. I cannot reveal the name for obvious reasons but...</h4>
+        </div>
+        <div class="card-footer bg-white">
+            <div class="wrapfooter">
+                
+                <span class="meta-footer-thumb">
+                
+                <img class="author-thumb" src="/assets/images/avatar.png" alt="Sergio">
+                
+                </span>
+                <span class="author-meta">
+                <span class="post-name"><a target="_blank" href="https://sergiovirahonda.github.io">Sergio</a></span> 
+                
+                <span class="post-date">26 Jul 2020</span>
+                </span>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end post -->
+            
+            
+            
+        
+        
+        </div>        
+</div>
+
+<!-- Review with LD-JSON, adapt it for your needs if you like, but make sure you test the generated HTML source code first: 
+https://search.google.com/structured-data/testing-tool/u/0/
+================================================== -->
+
+    <script type="application/ld+json">
+    {
+    "@context": "http://schema.org/",
+    "@type": "Review",
+    "itemReviewed": {
+    "@type": "Thing",
+    "name": "ChaseSupport Tweets Exploration & Analysis"
+    },
+    "author": {
+    "@type": "Person",
+    "name": "Sergio"
+    },
+    "datePublished": "2020-08-05",
+    "reviewRating": {
+    "@type": "Rating",
+    "ratingValue": "4",
+    "bestRating": "5"
+    }
+    }
+    </script>
+
+    </div>
+
+    
+    <!-- Newsletter
+    ================================================== -->
+    <div class="newsletter text-center">
+        <span class="h4"><img src="/assets/images/logo.png" class="newsletter-logo" alt="Sergio Virahonda"> &nbsp; Stay updated, <b>subscribe to my newsletter.</b></span>
+        <form action="https://wowthemes.us11.list-manage.com/subscribe/post?u=8aeb20a530e124561927d3bd8&amp;id=8c3d2d214b" method="post" name="mc-embedded-subscribe-form" class="wj-contact-form validate" target="_blank" novalidate>
+            <div class="mc-field-group d-inline-flex">
+            <input type="email" placeholder="Your e-mail" name="EMAIL" class="required email" id="mce-EMAIL" autocomplete="on" required>
+            <input type="submit" value="Subscribe" name="subscribe" class="heart">
+            </div>
+        </form>
+    </div>
+    
+    
+</div>
+
+<!-- Begin Footer
+================================================== -->
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-12 text-center text-lg-left">
+                Copyright © 2020 Sergio Virahonda 
+            </div>
+            <div class="col-md-6 col-sm-12 text-center text-lg-right">    
+                <a target="_blank" href="https://github.com">Site hosted on top of GitHub :)</a>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- End Footer
+================================================== -->
+
+</div> <!-- /.site-content -->
+
+<!-- Scripts (if you need bootstrap.js, please add it yourself. I didn't use it for performance reasons, it was not needed in this theme)
+================================================== -->
+
+<script src="/assets/js/prism.js"></script>
+
+<script src="/assets/js/theme.js"></script>
+
+
+
+
+<script id="dsq-count-scr" src="//demowebsite.disqus.com/count.js"></script>
+
+
+</body>
+</html>
