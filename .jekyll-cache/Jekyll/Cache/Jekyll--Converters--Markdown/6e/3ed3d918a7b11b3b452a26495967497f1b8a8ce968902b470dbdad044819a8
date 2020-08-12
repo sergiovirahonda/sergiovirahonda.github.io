@@ -1,0 +1,61 @@
+I"�<p>Hi there. I hope you’re doing well. Today I’m going to walk you through this fascinating project about Natural Language Processing but let me explain myself and talk about its context. I’ve been reading a lot about how hard the COVID-19’s lockdown is hitting the people out there. We all know the isolation affects people different ways, but the most frequents are depression and anxiety which is an expected outcome - the natural responses to confinement are precisely these, and most of the people don’t even know it. It’s been a hard time, people are afraid of uncertainty, of losing their jobs as many people have already done. Simply the conditions are met for a major emotional imbalance in the world’s population</p>
+
+<p>Experts recommend to stay away from social media because it accelerates the depression process, and who is depressed already will be even more, however people expressions on it are a key instrument to determine how a population is feeling. Most of the social media active people express how they feel in tweets, facebook posts, comments and even Instagram captions. So, starting from there, <strong>can we determine if the depression and anxiety have increased during the lockdown implementing Machine Learning?</strong> It’s an ambitious project, but will do my best to explain myself as clearly as possible.</p>
+
+<p>This post will cover several steps, but a 10000 feet overview would be:</p>
+
+<ul>
+  <li><strong>Topic Modeling</strong> - where we’ll be looking for two labels: 1 - Depression &amp; anxiety comments, 0 - Other</li>
+  <li><strong>Topic Classification</strong> - Once we have the labels, we train a model to learn these topics and start predicting them in other datasets.</li>
+</ul>
+
+<p>To achieve both tasks, we’ll go through:</p>
+
+<ul>
+  <li><strong>Data collection</strong> - Getting data from different sources to accomplish the main objective.</li>
+  <li><strong>Data cleaning</strong> - We’ll have to take all the data which is already in different formats and clean it up to then be able to use it.</li>
+  <li><strong>Natural Language Processing for Topic Modeling</strong> - We’ll need to transform the text data into a type that can be interpreted by ML models.</li>
+  <li><strong>Unsupervised Learning tasks for Topic Modeling</strong> - This is crucial, because most of the data we can find out there is unlabeled, so we first need to identify patterns in it.</li>
+  <li><strong>Supervised Learning tasks for Topic Classification</strong> - Once the data is labeled, we’ll go through several ML algorithms to finally select the one that delivers the best perfomance.</li>
+  <li><strong>Predict depression and anxiety</strong> in unseen tweets before and after lockdown</li>
+  <li><strong>Results’ charting and conclusions</strong></li>
+</ul>
+
+<p>In addition and before moving on, let me talk about the datasets used in this project:</p>
+
+<ul>
+  <li>
+    <p>The Depression &amp; Anxiety Facebook comments dataset was obtained at https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6111060/ - It contains several comments where depressive and anxious terms are used. There’s already a research about it on that website. For this opportunity, we’ll use it only to model the topics - Depression/Anxiety &amp; others.</p>
+  </li>
+  <li>
+    <p>The COVID-19 tweets were acquired by myself implementing tweets scrapping. The dataset is composed by several tweets distribuited in the first week of the US lockdown - Don’t worry, I’ll explain later how I did to scrap them.</p>
+  </li>
+</ul>
+
+<p>Alright, let’s move on and deep dive into this adventure.</p>
+
+<h1 id="data-exploration-for-topic-modeling">Data exploration for Topic Modeling</h1>
+
+<p>This was no more than exploring the Facebook comments dataset to know how it’s composed. Esentially it contains about 7000 entries, all of them in the depression/anxiety context but it doesn’t mean they are depressive or anxious comments. They can reference people talking about depression in a medical context, informative content, or just really depressive people expressing themselves. There aren’t empty entries btw.</p>
+
+<h1 id="data-preprocessing-for-topic-modeling">Data Preprocessing for Topic Modeling</h1>
+
+<p>Well, It’s the first step when taking the NLP route, isn’t it? It’s all about normalizing the text data, what would be removing the background noise in sound engineering. It’s all done with the purpose of getting quality data that can be later adapted to be interpreted by ML models.</p>
+
+<p>These are the steps performed in this stage, and the most important ones that should be implemented in all NLP projects:</p>
+
+<ul>
+  <li>Remove URLs - because they don’t add any value to the text (it would depend on the project).</li>
+  <li>Remove emails - same as before, they don’t add any value more than noise.</li>
+  <li>Lowercase all text - this with the purpose of getting normalized data. Otherwise we would have several word variations.</li>
+  <li>Remove punctuation signs - they can add word variations that our models can understand as different ones.</li>
+  <li>Remove stop words - This is crucial, essentially we’re looking to remove common words such as I, you, but, ok, don’t, and so on. They won’t add any value and only force the models to learn meaningless vocabulary.</li>
+  <li>Lemmatize text - this is the most important part. We need to find the root words, this with the intention of avoiding several variations. Smiling would be transformed in its root form <em>smile</em>, laughing into <em>laugh</em> and so on. Now do you understand how important is it?</li>
+</ul>
+
+<p>All these tasks were achieved implementing NLTK and Gensim libraries which contain fantastic methods to process text data but the most important thing about them is the good quality documentation you can find out there on the Internet.</p>
+
+<h1 id="data-vectorization-for-topic-modeling">Data Vectorization for Topic Modeling</h1>
+
+<p>Alright, I’m gonna suppose you have zero knowledge about text data processing for Machine Learning so let’s put first things first.</p>
+:ET

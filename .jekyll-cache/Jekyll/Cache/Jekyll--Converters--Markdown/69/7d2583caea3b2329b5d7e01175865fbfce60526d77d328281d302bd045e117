@@ -1,9 +1,0 @@
-I"Y<p>Hi there! It’s nice you see you around.</p>
-
-<p>In this post I’m going to walk you through a very frequent business case. You all know that Customer Support service is a very important link in the customer satisfaction process and management is very keen when measuring the agents, all this because of the importance they have for a company, doesn’t matter its nature. A product/service can be fantastic, but if the client needs some guidance/support afterwards and it’s not as good as the product, it will automatically become a terrible experience.</p>
-
-<p>The main issue with the Twitter Customer Support is that there’s no way to measure the agents’ performance, because the clients don’t provide feedback at all. So, how could the interactions experience be measured? And in the case the business would want to implement a chatbot or simply automated responses for some specific topics, how could this be achieved? I’ll explain how Natural Language Processing and Topic Modeling could boost a business need of this nature. Let’s get hands on.</p>
-
-<h1 id="the-dataset">The dataset</h1>
-
-:ET

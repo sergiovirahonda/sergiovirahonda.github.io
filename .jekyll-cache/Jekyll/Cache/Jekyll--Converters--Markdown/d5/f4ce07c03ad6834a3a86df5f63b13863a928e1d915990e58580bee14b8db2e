@@ -1,0 +1,4 @@
+I"c<pre><code class="language-python">def greetings():
+    return "Hello, friend."
+</code></pre>
+:ET
