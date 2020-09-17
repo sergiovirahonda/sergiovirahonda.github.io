@@ -11,12 +11,12 @@ comments: false
 
 Hi there. I hope you're doing well. Today I'm going to walk you through this fascinating project about Natural Language Processing but let me explain myself and talk about its context. I've been reading a lot about how hard the COVID-19's lockdown is hitting the people out there. We all know the isolation affects people different ways, but the most frequents are depression and anxiety which is an expected outcome - the natural responses to confinement are precisely these, and most of the people don't even know it. It's been a hard time, people are afraid of uncertainty, of losing their jobs as many people have already done. Simply the conditions are met for a major emotional imbalance in the world's population
 
-Experts recommend to stay away from social media because it accelerates the depression process, and who is depressed already will be even more, however people expressions on it are a key instrument to determine how a population is feeling. Most of the social media active people express how they feel in tweets, facebook posts, comments and even Instagram captions. So, starting from there, **can we determine if the depression and anxiety have increased during the lockdown implementing Machine Learning?** It's an ambitious project, but will do my best to explain myself as clearly as possible.
+Experts recommend to stay away from social media because it accelerates the depression process, and who is depressed already will be even more, however people expressions on it are a key instrument to determine how a population is feeling. Most of the social media active people express how they feel in tweets, facebook posts, comments and even Instagram captions. So, starting from there, **can we predict depression on Twitter in the COVID-19 lockdown context implementing Machine Learning?** It's an ambitious project, but will do my best to explain myself as clear as possible.
 
 This post will cover several steps, but a 10000 feet overview would be:
 
 * **Topic Modeling** - where we'll be looking for two labels: 1 - Depression & anxiety comments, 0 - Other
-* **Topic Classification** - Once we have the labels, we train a model to learn these topics and start predicting them in other datasets.
+* **Topic Classification** - Once we have the labels, we'll train a model to learn these topics and start predicting them in other datasets.
 
 To achieve both tasks, we'll go through:
 
@@ -24,8 +24,9 @@ To achieve both tasks, we'll go through:
 * **Data cleaning** - We'll have to take all the data which is already in different formats and clean it up to then be able to use it.
 * **Natural Language Processing for Topic Modeling** - We'll need to transform the text data into a type that can be interpreted by ML models.
 * **Unsupervised Learning tasks for Topic Modeling** - This is crucial, because most of the data we can find out there is unlabeled, so we first need to identify patterns in it.
-* **Supervised Learning tasks for Topic Classification** - Once the data is labeled, we'll go through several ML algorithms to finally select the one that delivers the best perfomance.
-* **Predict depression and anxiety** in unseen tweets before and after lockdown
+* **Supervised Learning tasks for Topic Classification** - Once the data is labeled, we'll go through a few Deep Learning architectures to finally select the one that delivers the best perfomance.
+* **Predicting depression and anxiety** in unseen tweets before and after lockdown
+* **Deploying the model in AWS SageMaker**
 * **Results' charting and conclusions**
 
 In addition and before moving on, let me talk about the datasets used in this project:
@@ -154,17 +155,30 @@ Now the dataset is properly labeled; the label 1 - Depression & Anxiety- is pret
 
 # Data preprocessing for Topic Classification
 
-This is basically apply the same pipeline that we used to get the bag-of-words that we got previously. All these tasks to get an understandable dataset that can be then fed to our classifier.
+The text preprocessing is completely different when talking about Neural Networks. We don't use bag-of-words because is a veeeery old fashioned method; instead, we'll have to use a tokenizer (which takes a sentence and splits it and forms a list of the sentence's words) and then form sequences with the tokenized text. **Sequences** are 3D tensors used by Recurrent Neural Networks. Once we have the data sequenced, we can feed our Deep Learning model, which as you may know, *only accepts tensors as input*
+
 
 # Model Selection for the Topic Classifier
 
-Alright, we've been doing some topic modeling to finally reach this point. Essentially what did is to train several vectorizers and supervised ML models to get a very accurate result to then predict tweets' topics from a dataset that we'll be using later on this project. Btw, we'll skip Random Forest model because it's known to overfit the text data and deliver poor metrics.
+Alright, we've been doing some topic modeling to finally reach this point. Essentially what I did was to build 3 Deep Neural Networks, starting from a very simple one (a single LSTM layer model) which didn't perform as expected, so created a more complex one adding one more layer but looked like the LSTM layers were not understanding properly the underlying text structure; the solution? To implement a bidirectional RNN, which essentially trains over chronologically ordered data as well as anti-chronologically ordered data - Basically reads the data as its shown but as well backwards, so that allows to find more complex structures in the sequences. This is thow the model creation looks like:
 
-Long story short: we've gone through SGD Classifier, SVC, XGBoost classifier and finally Logistic Regression classifier, which reached the best accuracy. We also compared confusion matrices and the Logistic one was the one that best performed by far. To get in context, let me show it to you:
+```python
 
-![Confusion Matrix](/assets/images/depression-anxiety/confusion.png)
+model3 = Sequential()
+model3.add(layers.Embedding(max_words, 40))
+model3.add(layers.Bidirectional(layers.LSTM(40,dropout=0.5)))
+model3.add(layers.Dense(1,activation='sigmoid'))
 
-Not bad, huh? The simplest model was the one that delivered one of the best metrics. We kept this model because it fitted the data very quick and for our purposes this one behaves more than good. We can deal with the FPs and FNs misclassified by this predictor. 
+model3.compile(optimizer='rmsprop',loss='binary_crossentropy', metrics=['accuracy'])
+
+history = model3.fit(X_train, y_train, epochs=8,validation_data=(X_test, y_test))
+```
+
+Long story short: The model achieved 90% of accuracy on the test data, which is not a fantastic score but keep in mind that the dataset contains only 8000 comments - That's not enough for a DL model but for a classic ML one. The good thing: it achieved acceptable results when the confusion matrix was checked:
+
+![Confusion Matrix](/assets/images/depression-anxiety/confusion1.png)
+
+Not bad, huh? We can deal with the FPs and FNs misclassified by this predictor. 
 
 # Depressive/anxious tweets import and exploration
 
@@ -186,54 +200,23 @@ I extracted publicly available tweets from all US. In total, I've got about 25k 
 
 # Predicting depression & anxiety - Finally
 
-We're reaching the end of this project. Finally bust not less important, it's time to predict depression and anxiety on the new dataset. To achieve this, we went again through text preprocessing to then start predicting. 
+We're reaching the end of this project. Finally bust not less important, it's time to predict depression and anxiety on the new dataset. To achieve this, we went again through the process of converting the text data into sequences. Right after this, invoked the model and passed all the sequences to know what the outcomes were.
 
-Once we performed the massive prediction, we've got some that look very well, but also very sad! It's the demonstration that there are many people out there having serious issues. Obviously there are some tweets that are related to other type of depression, but most of them are about actual depressive and anxious people. Let's get more info about this.
+Once we performed the massive prediction, we've got some that look very well, but also very sad! It's the demonstration that there are many people out there having serious issues. Obviously there are some tweets that are related to other type of depression, but most of them are about actual depressive and anxious people. Also tested the model with a tweet simulation using depressive anxious language and it delivered a good result!
 
-# Important findings
+# Deploying the model to AWS SageMaker
 
-I just put the data together to plot some curves about the actual number of depressive/anxious tweets against the whole tweets dataset, to determine if exists any pattern where we can infer some conclusions.
-
-I**MPORTANT:** The OMGOT script downloaded all available tweets with the specification given. We'll be basing our research on a unbalanced and very irregular dataset, just FYI. In addition, it's just to measure how well our model performs, the rest of the research is just informative and not with science purposes.
-
-How does look the depression/anxiety curve per day for both weeks? Is there any pattern here? Any less depressive day compared to the others? Btw, the vertical line indicates the start of the lockdown in US.
-
-![Depression curve](/assets/images/depression-anxiety/depression_curve.png)
-
-**There are a few things to extract from the above's chart**:
-
-*We would need to get more data and also for more days, but some premature thoughts would be*:
-
-* The predictions follow the trend of the dataset in most of the days, which is made up of tweets that contain keywords related to depression and anxiety but not are not necessarily depressive/anxious tweets.
-* Even when the dataset has a peak on 03/20, the predictions don't follow the trend this day. That only means our model is filtering depressive/anxious tweets properly. This day people could be tweeting about "Great Depression" which we know was a world TT but is not related to actual depression, just economy depression.
-* Weekends are less depressive - which makes sense. Important researches have confirmed that the less depressive day for the americans is Saturday.
-* We cannot make an affirmation, but looks like the lockdown has decreased the anxiety and depression on americans, at least on the first week of lockdown. That could make sense, people would be at home with their families and not having to deal with outside people - which generates high volumes of anxiety for introvert individuals.
-* Week days are the ones that generate more anxiety and depression on americans, with peak on wednesdays.
-* Let's get some data about time to find out more trends.
-
-Looking at the tweets-per-hour chart:
-
-![Hours curve](/assets/images/depression-anxiety/hours.png)
-
-**There are a few things we can extract from the above's chart as well:**
-
-*As mentioned before, these are just assumptions and we would need to get more data about this, but some premature conclusions would be*:
-
-* The depression/anxiety curves reach the bottom at 9:00 am, for obvious reasons like that's the time were there are less depressive/anxious tweets but also could be related factors like people is facing the job duties - most of them would be pretty busy.
-* The curves reach the highest point at 17:00. This could be the time people unsatisfied with their jobs begin expressing their sentiment through Twitter.
-* 23:00 is also a very important peak: It could demonstrate how people express their their anxiety and depression before going to bed. We all know that's a very dramatic moment for depressive people.
-* To get a bigger panorama, more data from more days would need to be acquired.
+Once we had our model totally ready to be deployed on production, we chose AWS SageMaker because it's one of the most simple ways to deploy DL models out there. It's pretty straightforward, all what you need to do is to create a Notebook instance at the Management Console, upload your data into the notebook home directory, create a script like **[this](https://github.com/sergiovirahonda/Depression-Prediction/blob/master/BidLSTM-Sagemaker/train.py)** which basically takes your data, uploads it to S3, builds the model that you want and at the ends saves it in ECR following their suggested structure. Once the script is ready, I developed **[this](https://github.com/sergiovirahonda/Depression-Prediction/blob/master/BidLSTM-Sagemaker/depression_detection.ipynb)** notebook which essentially what does is to take that script to train the model to then finally deploys it as an endpoint that can be called from everywhere within AWS to deliver inferences to your application.
 
 # Conclusions
 
 Alright, we've reached the end of this project. There are several things to highlight and also to close though.
 
-First of all I would say the models trained in here reached very good results even when the datasets were unbalanced. Also, even when they are pretty simple, could be implemented to identify several other topics such as violent, racist or abussive tweets, all of this with the goal of detect dangerous behaviors in the population or measure how hard an event impacts on it. We all know some companies are implementing this kind of models and apps to research about future employees before proceeding with the selection process.
+First of all I would say the models trained in here reached very good results even when the datasets were unbalanced and so small. Also, even when they are pretty simple, could be implemented to identify several other topics such as violent, racist or abussive tweets, all of this with the goal of detect dangerous behaviors in the population or measure how hard an event impacts on it. We all know some companies are implementing this kind of models and apps to research about future employees before proceeding with the selection process.
 
-Another important factor to highlight is that, prematurely saying, the first week of the lockdown decreased the depression and anxiety on the US population. We would need to research deeper, with more data for more days to know if actually the lockdown decresed depressive behavior. Also we identified important patterns such as weekens are less depressive days, and the most depressive day of the week is around Tuesday, just like most of the researches state. In addition, we've identified some important patterns during the day, such as the most depressive hour is 17:00 and 23:00, and the less depressive hour is 09:00 - we would need to research in more depth to know the reasons.
 
-When talking about how this research can be improved, I would say more data needs to be acquired: More days before and after the lockdown and compare it with other countries, just to know if there are more important patterns. Another good approach would be to include some other keywords to the dataset, that way the classifier has a wider vocabulary. Finally, to normalize the results, I would get the same number of tweets for every day and every hour, that way we can get much more accurate data just basing us on the predictions and not on the tweets fluctuation.
+When talking about how this research can be improved, I would say more data needs to be acquired: More days before and after the lockdown and compare it with other countries, just to know if there are more important patterns. Another good approach would be to include some other keywords to the dataset, that way the classifier has a wider vocabulary.
 
-Btw, you can find the whole notebook available in my [GitHub repo](https://github.com/sergiovirahonda/)
+Btw, you can find the whole project available available in my [GitHub repo](https://github.com/sergiovirahonda/Depression-Prediction)
 
 Hope you've enjoyed the read. See you around!
