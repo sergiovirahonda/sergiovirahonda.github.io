@@ -16,7 +16,7 @@ print(greetings())
 
 How're you doing?
 
-It won't take too long. Call me Serge - just as my closest friends do - I'm a junior Data Scientist who loves Python, also a Telecommunications engineer (yeah, too much signals processing and transmission, statistics and Cisco stuff) graduated at Andres Bello Catholic University who moved abroad about 3 years ago and since then, I've been focused on building a meaninful career. 
+It won't take too long. Call me Serge - just as my closest friends do - I'm a Data Scientist who loves Python, also a Telecommunications engineer (yeah, too much signals processing and transmission, statistics and Cisco stuff) graduated at Andres Bello Catholic University who moved abroad about 3 years ago and since then, I've been focused on building a meaninful career. 
 
 After graduating from College, I worked for the biggest Telecommunications company at Venezuela, then for the most recognized IT auditing firm and finally and since the last 3 years, worked for one of the biggest banks in the world. Won't reveal names, just for compliance reasons.
 
